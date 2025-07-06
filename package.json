@@ -8,9 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "bun run index.ts",
-    "build": "tsc",
     "format": "prettier --write \"**/*.{js,ts,tsx,html,css}\" --ignore-unknown",
-    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install; fi",
     "deploy": "bash deploy/deploy.sh",
     "get-status": "bash deploy/get-status.sh"
   },
