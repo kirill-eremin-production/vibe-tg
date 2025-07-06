@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Устанавливаем зависимости
-RUN npm ci --only=production
+RUN NPM_CONFIG_IGNORE_SCRIPTS=true npm ci --only=production
 
 # Копируем остальные файлы приложения
 COPY . .
