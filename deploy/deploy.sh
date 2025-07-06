@@ -10,12 +10,13 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
-if [ "$#" -ne 1 ]; then
-  echo "Использование: $0 user@server"
+if [ "$#" -ne 2 ]; then
+  echo "Использование: $0 user@server tg_bot_token"
   exit 1
 fi
 
 REMOTE=$1
+TG_BOT_TOKEN=$2
 REMOTE_DIR="/tmp/vibe-tg-deploy"
 GIT_REPO="git@github.com:kirill-eremin-production/vibe-tg.git"
 
@@ -38,7 +39,15 @@ ssh "$REMOTE" "
   docker rm vibe-tg-container || true
 
   echo 'Запуск нового контейнера...'
-  docker run -d --name vibe-tg-container -p 60111:60111 vibe-tg
+  docker run -d --name vibe-tg-container -p 60111:60111 -e TG_BOT_TOKEN=$TG_BOT_TOKEN vibe-tg
 
-  echo 'Деплой завершен.'
+  echo 'Запуск поллинга статуса деплоя...'
 "
+
+for i in {1..6}
+do
+  ./deploy/get-status.sh $REMOTE
+  sleep 10
+done
+
+echo "Поллинг статуса деплоя завершен."
