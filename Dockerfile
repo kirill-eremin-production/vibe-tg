@@ -7,6 +7,9 @@ WORKDIR /app
 # Копируем package.json и bun.lockb для установки зависимостей
 COPY package.json bun.lockb* ./
 
+# Устанавливаем переменную окружения для production
+ENV NODE_ENV=production
+
 # Устанавливаем зависимости
 RUN bun install --production
 
