@@ -44,6 +44,8 @@ ssh "$REMOTE" "
   echo 'Запуск поллинга статуса деплоя...'
 "
 
+chmod +x deploy/get-status.sh
+
 for i in {1..6}
 do
   ./deploy/get-status.sh $REMOTE
