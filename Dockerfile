@@ -1,14 +1,14 @@
-# Используем официальный Node.js образ с легковесным дистрибутивом
-FROM node:22
+# Используем официальный bun образ
+FROM bun:latest
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем package.json и package-lock.json для установки зависимостей
-COPY package.json package-lock.json ./
+# Копируем package.json и bun.lockb для установки зависимостей
+COPY package.json bun.lockb* ./
 
 # Устанавливаем зависимости
-RUN NPM_CONFIG_IGNORE_SCRIPTS=true npm ci --only=production
+RUN bun install --production
 
 # Копируем остальные файлы приложения
 COPY . .
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 60111
 
 # Запускаем приложение
-CMD ["node", "index.js"]
+CMD ["bun", "run", "index.ts"]
