@@ -48,8 +48,13 @@ chmod +x deploy/get-status.sh
 
 for i in {1..6}
 do
+  for j in {1..10}
+  do
+    echo -n "."
+    sleep 1
+  done
+  echo
   ./deploy/get-status.sh $REMOTE
-  sleep 10
 done
 
 echo "Поллинг статуса деплоя завершен."
