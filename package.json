@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "format": "prettier --write \"**/*.{js,ts,tsx,html,css}\" --ignore-unknown",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "bash deploy/deploy.sh"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

@@ -24,17 +24,17 @@ docker build -t vibe-tg .
 3. Запустите контейнер:
 
 ```bash
-docker run -d -p 3000:3000 --name vibe-tg-container vibe-tg
+docker run -d -p 60111:60111 --name vibe-tg-container vibe-tg
 ```
 
 - Опция `-d` запускает контейнер в фоне
-- Опция `-p 3000:3000` пробрасывает порт 3000 из контейнера на порт 3000 хоста (при необходимости измените порт)
+- Опция `-p 60111:60111` пробрасывает порт 60111 из контейнера на порт 60111 хоста (при необходимости измените порт)
 - `--name` задаёт имя контейнера
 
 4. Проверьте, что приложение доступно по адресу:
 
 ```
-http://<IP_сервера>:3000
+http://<IP_сервера>:60111
 ```
 
 ## Остановка и удаление контейнера
@@ -59,7 +59,7 @@ docker rm vibe-tg-container
 docker build -t vibe-tg .
 docker stop vibe-tg-container
 docker rm vibe-tg-container
-docker run -d -p 3000:3000 --name vibe-tg-container vibe-tg
+docker run -d -p 60111:60111 --name vibe-tg-container vibe-tg
 ```
 
 ---
