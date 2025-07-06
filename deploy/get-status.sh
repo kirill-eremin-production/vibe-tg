@@ -14,6 +14,21 @@ REMOTE=$1
 echo "Подключение к серверу $REMOTE для получения статуса контейнера..."
 
 ssh "$REMOTE" "
-  echo 'Статус контейнера vibe-tg-container:'
-  docker ps -f name=vibe-tg-container
+  CONTAINER_NAME=vibe-tg-container
+  echo 'Проверка статуса контейнера:' \$CONTAINER_NAME
+
+  RUNNING_CONTAINER=\$(docker ps -q -f name=\$CONTAINER_NAME)
+  if [ -n \"\$RUNNING_CONTAINER\" ]; then
+    echo 'Контейнер запущен:'
+    docker ps -f name=\$CONTAINER_NAME
+  else
+    EXITED_CONTAINER=\$(docker ps -aq -f name=\$CONTAINER_NAME -f status=exited)
+    if [ -n \"\$EXITED_CONTAINER\" ]; then
+      echo 'Контейнер упал. Вывод логов:'
+      docker logs \$CONTAINER_NAME
+    else
+      echo 'Контейнер не запущен и не найден в статусе exited.'
+      docker ps -a -f name=\$CONTAINER_NAME
+    fi
+  fi
 "
